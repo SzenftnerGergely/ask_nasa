@@ -1,14 +1,17 @@
 import "./style.css"
 import axios from "axios"
+import {z} from "zod"
 
 const app = document.getElementById("app") as HTMLDivElement
 
-type Response = {
-  date: Date
-  explanation: string
-  url: string
-  title: string
-}
+const ResponseSchema = z.object({
+  date: z.date(),
+  explanation: z.string(),
+  url: z.string(),
+  title: z.string(),
+})
+
+type Response = z.infer<typeof ResponseSchema>
 
 let baseUrl = `https://api.nasa.gov/planetary/apod?api_key=91FhvhJfZM5WZjw97qXdIfzcfodx0donh3xNiOU3`
 
